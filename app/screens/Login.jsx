@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Button, StyleSheet, Text, View, Pressable } from 'react-native';
-import { login } from '../services/AppwriteService';
+import { login, loginWithGoogle } from '../services/AppwriteService';
 import { UserContext } from '../UserContext';
 import { Snackbar, TextInput } from 'react-native-paper';
 
@@ -22,6 +22,8 @@ const Login = ({ navigation }) => {
             setSnackbarVisible(true); // Show Snackbar on error
         }
     };
+
+
 
     return (
         <View style={styles.container}>
@@ -48,16 +50,16 @@ const Login = ({ navigation }) => {
                 </Pressable>
             </View>
 
-           
             <Snackbar
                 visible={snackbarVisible}
-                duration={3000} 
+                duration={3000}
+                onDismiss={() => setSnackbarVisible(false)}
                 action={{
                     label: 'Undo',
                     onPress: () => setSnackbarVisible(false),
                 }}
             >
-                {error} 
+                {error}
             </Snackbar>
         </View>
     );

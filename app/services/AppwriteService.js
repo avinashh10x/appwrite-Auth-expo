@@ -39,8 +39,35 @@ async function logout() {
     }
 }
 
+const handleGoogleLogin = async () => {
+    // Get the Google OAuth access token
+    const accessToken = await getGoogleAccessToken();
+
+    // Call the loginWithGoogle function
+    const userData = await loginWithGoogle(accessToken);
+
+    // Use the user data as needed
+    console.log(userData);
+};
+
+const getGoogleAccessToken = async () => {
+    // Redirect the user to the Google OAuth authorization URL
+    const authorizationUrl = `(link unavailable)`;
+    const response = await fetch(authorizationUrl);
+    const authorizationCode = await response.text();
+
+    // Exchange the authorization code for an access token
+    const tokenUrl = `(link unavailable)`;
+    const tokenResponse = await fetch(tokenUrl);
+    const tokenData = await tokenResponse.json();
+    const accessToken = tokenData.access_token;
+
+    return accessToken;
+};
+
 export {
     login,
     register,
-    logout
+    logout,
+    loginWithGoogle
 };
