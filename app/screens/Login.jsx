@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Button, StyleSheet, Text, View, Pressable } from 'react-native';
-import { login, loginWithGoogle } from '../services/AppwriteService';
+import { login } from '../services/AppwriteService';
 import { UserContext } from '../UserContext';
 import { Snackbar, TextInput } from 'react-native-paper';
 
@@ -23,6 +23,20 @@ const Login = ({ navigation }) => {
         }
     };
 
+    const [passwordVisibility, setPasswordVisibility] = useState(true);
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisibility(!passwordVisibility);
+    };
+
+    const MyTextInput = ({
+        icon = 'eye', // default icon
+        onPress = () => { }, // default on press function
+    }) => {
+        return (
+            <TextInput.Icon icon={icon} onPress={onPress} />
+        );
+    };
 
 
     return (
@@ -32,16 +46,20 @@ const Login = ({ navigation }) => {
                 style={styles.input}
                 placeholder="Email"
                 value={email}
+                mode='outlined'
                 onChangeText={(text) => setEmail(text)}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Password"
                 value={password}
+                mode='outlined'
                 onChangeText={(text) => setPassword(text)}
-                secureTextEntry
+                secureTextEntry={passwordVisibility}
+                right={<MyTextInput icon={passwordVisibility ? 'eye-off' : 'eye'}
+                onPress={togglePasswordVisibility} 
+                />}
             />
-
             <Button title="Login" onPress={handleLogin} />
             <View style={styles.signupContainer}>
                 <Text style={styles.signupText}>Don't have an account?{' '}</Text>

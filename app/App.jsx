@@ -5,23 +5,22 @@ import Home from './screens/Home';
 import Login from './screens/Login';
 import Signup from './screens/Signup'
 import { UserProvider } from './UserContext';
-import { StatusBar } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
     return (
         <UserProvider>
-            <StatusBar barStyle={'dark-content'} />
-           
-                <NavigationContainer independent={true}>
-                    <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
-                        <Stack.Screen name='Home' component={Home} />
-                        <Stack.Screen name='Login' component={Login} />
-                        <Stack.Screen name='Signup' component={Signup} />
-                    </Stack.Navigator>
-                </NavigationContainer>
-           
+             <StatusBar hidden />
+            <NavigationContainer independent={true}>
+                <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name='Home' component={Home} />
+                    <Stack.Screen name='Login' component={Login} />
+                    <Stack.Screen name='Signup' component={Signup} />
+                </Stack.Navigator>
+            </NavigationContainer>
+
         </UserProvider>
     );
 };
